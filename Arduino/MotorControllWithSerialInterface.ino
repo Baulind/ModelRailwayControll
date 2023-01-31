@@ -1,3 +1,20 @@
+/*
+ * Filename:			...
+ * File description:	...
+ *
+ * Authors:				* Benjamin Lindbæck
+ * 						* ...
+ * 						* ...
+ * Revised by:			Emil Fagerli Osvoll
+ * Revision date:		31.01.2023
+ * 
+ * Project:				Bachelor thesis
+ * Project name:		Model railway Control via Colaborating Processing Units
+ * Project recipient:	Fagskulen Vestland
+ * University:			Western Norway University of Applied Sciences
+ * Course:				Automation with Robotics
+ */
+
 #include <stdio.h>
 #include <string.h>
 
