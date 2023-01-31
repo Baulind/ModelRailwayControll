@@ -1,0 +1,44 @@
+Django vs Flask. 
+Flsak is not used often in the industry. Not as powerfull as Django. 
+But Django cannot apply for the API. Building a small website, flask is perfect. 
+Way more simple and faster. 
+
+Package install: 
+-       pip install flask 
+-       pip install flask-login
+-       pip install flask-sqlalchemy
+
+
+1. Initiate the app, and create app function (SECRET HEY MUST BE CHANGED)
+
+2. Make sure that the python interpretor is not wrong, if the issue "flask module is not found" do this: 
+(Its common in VsCode)
+ Ctrl + Shift + P
+  -> python: Select interpreter
+  -> Select the conda one. 
+
+
+Make routs in views.py and auth.py 
+Register them in __init__.py
+
+Go in templates and make som HTML files 
+In static we want to save img, javascript or CSS
+
+How we use the base template: 
+1. Make a home tamplete .html
+2. in home.html = {% extends "base.html" %} {% block title %}Changed{% endblock %}
+3. Go to views.py, and render the template 
+
+Endblock formating (if in templates) : 45:00
+
+Using HTTP while submiting the button while reg ot login 
+What type of request do you want to send to the website 
+GET -> Loading the website (retriving informations)
+POST -> Some kind of change of the state 
+
+Save users info in a database using POST 
+
+After that go to __init__ and start on the database
+For now gonna use Flask sqlalchemy, but afterwards we can change it to postressql 
+
+Wanna make two databases, one for the users, one for the nodes 
