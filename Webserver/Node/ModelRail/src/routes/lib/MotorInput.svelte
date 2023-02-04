@@ -1,16 +1,14 @@
 <script lang="ts">
 	import Slider from "./Slider.svelte";
-    import Toggle from "./toggle.svelte";
     import type { Motor } from "src/types/Motor.type";
     export let train: string;
-    const thing: Motor = {id:1, min:-255, max:255, val:0, motor:false, direction:true};
+    const thing: Motor = {id:1, min:-255, max:255, val:0, motor:false};
 </script>
 
 <h2>{train}</h2>
 <div class="container">
     <h3>Motor</h3>
     <h3>Hastighet</h3>
-    <Toggle motor={thing}></Toggle>
     <Slider motor={thing}></Slider>
 </div>
 

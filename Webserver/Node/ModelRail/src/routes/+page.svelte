@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { each } from "svelte/internal";
 	import MotorInput from "./lib/MotorInput.svelte";
-    let trains = ["Tog1", "Tog2", "Tog3", "test"];
+    let trains = ["Tog1"];
 </script>
 
 {#each trains as train}

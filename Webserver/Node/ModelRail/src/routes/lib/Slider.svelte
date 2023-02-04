@@ -1,7 +1,18 @@
 <script lang="ts">
+    import { onMount } from "svelte";
     import type { Motor } from "src/types/Motor.type";
+    import Paho from 'paho-mqtt';
     export let motor: Motor;
-    $: console.log(motor.val)
+    let client: any;
+    onMount(() => {
+        //ws://192.168.0.52
+        client = new Paho.Client("192.168.0.52", 1883, "browser", "");
+    });
+    $: {
+        let message = new Paho.Message('{\"Id\":0,\"Command\":\"setSpeed\",\"Args\":[{' + motor.val + '}]}');
+        //message.destinationName = "motor/cmd";
+        client.send(message);
+    }
 </script>
 
 <div class="slidecontainer">

@@ -4,5 +4,4 @@ export type Motor = {
     max: number;
     val: number;
     motor: boolean;
-    direction: boolean;
 }
