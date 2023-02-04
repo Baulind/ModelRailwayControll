@@ -1,7 +1,7 @@
 export type Motor = {
-    id: number;
-    min: number;
-    max: number;
-    val: number;
-    motor: boolean;
-}
+	id: number;
+	min: number;
+	max: number;
+	val: number;
+	motor: boolean;
+};
