@@ -39,8 +39,8 @@
 	/* Create a custom checkbox */
 	.checkmark {
 	position: absolute;
-	height: 2em;
-	width: 2em;
+	height: 1.5em;
+	width: 1.5em;
 	border-radius: 2em;
 	border: black;
 	background-color: #e60707;

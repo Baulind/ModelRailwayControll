@@ -35,10 +35,11 @@
 	}
 	.slidecontainer {
 		display: flex;
-		margin: 1em;
-		background-color: white;
-		padding: 2em;
+		max-width: fit-content;
+		margin: auto;
+		padding: 4em 0;
 		border-radius: 3em;
+		justify-content: center;
 	}
 	.resetButton{
 		font-size: 4em;

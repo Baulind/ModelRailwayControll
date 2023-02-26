@@ -16,7 +16,7 @@
 		{x: 15, y: 40},
 		{x: 15, y: 70},
 		{x: 15, y: 75},
-		{x: 20, y: 88},
+		{x: 20, y: 87},
 		{x:77.5, y: 70}
 	]
     
@@ -25,7 +25,7 @@
 <div class="TrackSwitcher">
     {#each Switches || [] as Switch, i}
     <div class="container" style="left: {cords[i].x}%; top: {cords[i].y}%;">
-        <IndividualSwitch Id={i} bind:Value={Switch} on:setSwitch={handleSwitch}></IndividualSwitch>
+        <IndividualSwitch Id={i} bind:Value={Switch} on:setSwitch={handleSwitch}/>
     </div>
     {/each}
     <img src="/Map.jpg" alt="Map of the railway">
@@ -49,5 +49,6 @@
     img{
         border-radius: 3em;
         max-width: 100%;
+        max-height: 50em;
     }
 </style>
