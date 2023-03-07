@@ -1,6 +1,6 @@
 <script lang="ts">
 	//export let Id: number;
-	export let Value: number = 0;
+	export let Value: number = 50;
 	export let Id: number = 0;
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -10,21 +10,28 @@
 			value: speed
 		});
 	}
-	$: setSpeed(Value);
+
+	//$: setSpeed(Value);
+
+	function reset(){
+		Value = 0;
+		setSpeed(Value)
+	}
 </script> 
 
 <div class="slidecontainer">
 	<input
 	type="range"
-	min={-255}
-	max={255}
+	min={-100}
+	max={100}
 	bind:value={Value}
+	on:change={() => setSpeed(Value)}
 	class="slider"
 	/>
 	<button
 	class="resetButton" 
-	on:click={() => {Value = 0}}
-	>❌</button>	
+	on:click={reset}
+	>🛑</button>	
 </div>
 	
 <style>

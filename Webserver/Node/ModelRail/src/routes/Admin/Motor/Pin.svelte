@@ -26,9 +26,9 @@
     <div>
         <span>{Id}# </span>
         <span>Output: </span>
-        <span><input class="editable" type="number" min="{min}" max="{max}" bind:value={Output}></span>
+        <span><input class="editable" type="number" min={min} max={max} bind:value={Output}></span>
         <span>Direction: </span>
-        <span><input class="editable" type="number" min="{min}" max="{max}" bind:value={Direction}></span>
+        <span><input class="editable" type="number" min={min} max={max} bind:value={Direction}></span>
     </div>
 </div>
 

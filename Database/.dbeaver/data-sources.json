@@ -1,0 +1,33 @@
+{
+	"folders": {
+		"VLFK": {}
+	},
+	"connections": {
+		"sqlite_jdbc-1869e521da5-e0945affca168fe": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "db.sqlite",
+			"save-password": true,
+			"show-system-objects": true,
+			"folder": "VLFK",
+			"configuration": {
+				"database": "C:\\Users\\bau-l\\Documents\\GitHub\\ModelRailwayControll\\Historian\\db.sqlite",
+				"url": "jdbc:sqlite:C:\\Users\\bau-l\\Documents\\GitHub\\ModelRailwayControll\\Historian\\db.sqlite",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}

@@ -6,6 +6,7 @@
 <div class="backdrop">
     <a class="shape" href="/Control_Panel">Control Panel</a>
     <a class="shape" href="/Admin/Train">Trains</a>
+    <a class="shape" href="/Admin/History">History</a>
     <br>
     <h2>Advanced:</h2>
 	<a class="shape" href="/Admin/Motor">Motor config</a>

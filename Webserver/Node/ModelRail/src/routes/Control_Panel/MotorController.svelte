@@ -46,7 +46,7 @@
         <div class="container" id="container">
             {#each values as v, i}
             <div class="controller">
-                <h2>Motor: {i} Value: {v}</h2>
+                <h2>Motor: {i} Value: {v}%</h2>
                 <IndividualMotor bind:Value={v} Id={i} on:setSpeed={handleSpeed}/>
             </div>
             {/each}

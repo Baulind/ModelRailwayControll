@@ -16,7 +16,7 @@
 	function connect() {
 		//192.168.0.52 9001
 		//client = new Paho.Client('192.168.0.219', 9001, '');
-		client = new Paho.Client('192.168.0.114', 9001, '');
+		client = new Paho.Client('localhost', 9001, '');
 		client.onConnectionLost = onConnectionLost;
 		client.onMessageArrived = onMessageArrived;
 		client.connect({ onSuccess: onConnect, onFailure: connect });
@@ -32,10 +32,11 @@
 
     function setConfig(){
         //Template for setting the motor speed value MQTT command
-        for (let i = 0; i < pins.length; i++) {
-            const c = pins[i];
-            let temp = '{"Id":' + i + ',"Command":"setPins","Value":[' + c.Output + ',' +c.Direction + ']}';
-            let message = new Paho.Message(temp);
+        const Command: string = "setPins";
+        let Value: number[] = [];
+        for (let Id = 0; Id < pins.length; Id++) {
+            Value = [pins[Id].Output, pins[Id].Direction]
+            let message = new Paho.Message(JSON.stringify({Id, Command, Value}));
             message.destinationName = 'motor/cmd';
             client?.send(message);
         }
@@ -64,16 +65,15 @@
     }
 </script>
 
-
 <div class="page">
-    {#await connected}
+    {#if !connected}
         <h2 class="center">Venter på forbinnelse med server...</h2>
-    {:then}
+    {:else}
     <div class="configureMotor shape">
         <h2>Set amount of motors.</h2>
         <div>
             <span>Number:</span>
-            <span><input type="number" min="{min}" max="{max}" bind:value={amount}></span>
+            <span><input type="number" min={min} max={max} bind:value={amount}></span>
         </div>
         <button class="shape submit" on:click={Generate}>Generate configuration.</button>
         {#if pins.length > 0}
@@ -90,7 +90,7 @@
             </div>
         {/if}
     </div>
-    {/await}
+    {/if}
 </div>
 
 
