@@ -3,25 +3,10 @@
 		"VLFK": {}
 	},
 	"connections": {
-		"sqlite_jdbc-1869e521da5-e0945affca168fe": {
-			"provider": "sqlite",
-			"driver": "sqlite_jdbc",
-			"name": "db.sqlite",
-			"save-password": true,
-			"show-system-objects": true,
-			"folder": "VLFK",
-			"configuration": {
-				"database": "C:\\Users\\bau-l\\Documents\\GitHub\\ModelRailwayControll\\Historian\\db.sqlite",
-				"url": "jdbc:sqlite:C:\\Users\\bau-l\\Documents\\GitHub\\ModelRailwayControll\\Historian\\db.sqlite",
-				"configurationType": "MANUAL",
-				"type": "dev",
-				"auth-model": "native"
-			}
-		},
 		"sqlite_jdbc-1869f0f7512-4699d2bd184ffd4d": {
 			"provider": "sqlite",
 			"driver": "sqlite_jdbc",
-			"name": "db.sqlite 2",
+			"name": "db.sqlite",
 			"save-password": true,
 			"folder": "VLFK",
 			"configuration": {

@@ -1,10 +1,11 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    
+    import { API } from "../../stores";
     let list: measurement[] = [];
     type measurement = {Id:number, SensorId:number, Speed:Number, time:String};
+    
     onMount(async () => {
-        fetch("http://localhost:3000/api/values", {
+        fetch($API, {
         headers: {
         "accept": "text/html",
         "Cookie": "Version=1",

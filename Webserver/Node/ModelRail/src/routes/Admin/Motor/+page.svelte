@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { each } from "svelte/internal";
 	import Pin from './Pin.svelte';
+    import { Broker } from "../../stores";  
+
     let amount: number = 0;
     const max: number = 12;
     const min: number = 0;
@@ -14,9 +16,7 @@
 		connect();
 	});
 	function connect() {
-		//192.168.0.52 9001
-		//client = new Paho.Client('192.168.0.219', 9001, '');
-		client = new Paho.Client('localhost', 9001, '');
+		client = new Paho.Client($Broker, 9001, '');
 		client.onConnectionLost = onConnectionLost;
 		client.onMessageArrived = onMessageArrived;
 		client.connect({ onSuccess: onConnect, onFailure: connect });

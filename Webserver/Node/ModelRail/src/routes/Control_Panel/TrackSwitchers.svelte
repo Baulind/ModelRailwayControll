@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { switches, switchCords, indicator, indicatorCords } from "../stores";
 	import IndividualSwitch from "./IndividualSwitch.svelte";
     import { createEventDispatcher } from 'svelte';
-    export let Switches: boolean[] = [];
     
 	const dispatch = createEventDispatcher();
     function handleSwitch(event: CustomEvent<any>){
@@ -10,21 +10,18 @@
 			value: event.detail.value
 		});
     }
-    
-	const cords = [
-		{x: 5, y: 30}, 
-		{x: 15, y: 40},
-		{x: 15, y: 70},
-		{x: 15, y: 75},
-		{x: 20, y: 87},
-		{x:77.5, y: 70}
-	]
-    
 </script>
 
 <div class="TrackSwitcher">
-    {#each Switches || [] as Switch, i}
-    <div class="container" style="left: {cords[i].x}%; top: {cords[i].y}%;">
+    {#each $indicator || [] as Indicator, i}
+    <div class="container" style="left: {$indicatorCords[i].x}%; top: {$indicatorCords[i].y}%;">
+        {#if Indicator === true}
+        <p>🚂</p>
+        {/if}
+    </div>
+    {/each}
+    {#each $switches || [] as Switch, i}
+    <div class="container" style="left: {$switchCords[i].x}%; top: {$switchCords[i].y}%;">
         <IndividualSwitch Id={i} bind:Value={Switch} on:setSwitch={handleSwitch}/>
     </div>
     {/each}
@@ -35,7 +32,6 @@
     .container{
 		display: block;
 		position: absolute;
-        min-height: 100%;
 	}
 	.TrackSwitcher{
         position: relative;
@@ -50,5 +46,8 @@
         border-radius: 3em;
         max-width: 100%;
         max-height: 50em;
+    }
+    p{
+        font-size: x-large;
     }
 </style>

@@ -1,20 +1,3 @@
-/*
- * Filename: ...
- * File description: ...
- *
- * Authors:
- * Benjamin Lindbæck
- * ...
- * ...
- * 
- * Revised by:
- * 
- * Project: Bachelor thesis
- * Project name: Model railway Control via Colaborating Processing Units
- * Project recipient: Fagskulen Vestland
- * University: Western Norway University of Applied Sciences
- * Course: Automation with Robotics
- */
 #include "Arduino.h"
 #include <analogWrite.h>
 #include "Motor.h"

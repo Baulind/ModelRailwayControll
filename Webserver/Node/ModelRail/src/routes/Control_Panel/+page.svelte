@@ -1,34 +1,40 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import TrackSwitchers from './TrackSwitchers.svelte';
+	import { Broker, railwayTrack, switches, indicator, uuid } from '../stores'
 	import Paho, { Message } from 'paho-mqtt';
 	import MotorController from './MotorController.svelte';
+
 	let client: Paho.Client;
+	let current: boolean = false;
 	let connected: boolean = false;
 	let users: number = 1;
+
 	onMount(() => {
 		//Connect to MQTT server
 		connect();
 	});
+
 	function connect() {
-		//192.168.0.52 9001
-		//client = new Paho.Client('192.168.0.219', 9001, '');
-		//client = new Paho.Client('192.168.0.114', 9001, '');
-		client = new Paho.Client('localhost', 9001, '');
+		client = new Paho.Client($Broker, 9001, $uuid);
 		client.onConnectionLost = onConnectionLost;
 		client.onMessageArrived = onMessageArrived;
 		client.connect({ onSuccess: onConnect, onFailure: connect });
 	}
+
 	function onConnect() {
 		connected = true;
 		client.subscribe('$SYS/broker/clients/active');
 		client.subscribe('motor/cmd/speed');
 		client.subscribe('switch/cmd/state');
+		client.subscribe('Sensors/Reading');
 	}
+
 	function onConnectionLost() {
 		connected = false;
 		connect();
 	}
+	
 	function onMessageArrived(message: Message) {
 		if(message.destinationName === '$SYS/broker/clients/active'){
 			users = +message.payloadString
@@ -36,37 +42,39 @@
 		else if (message.destinationName === 'motor/cmd/speed') {
 			let temp: {Id: number, Speed: number};
 			temp = JSON.parse(message.payloadString);
-			RailwayTrack[temp.Id] = temp.Speed
+			$railwayTrack[temp.Id] = temp.Speed
 		} 
 		else if (message.destinationName === 'switch/cmd/state'){
 			let temp: {Id: number, State: boolean};
 			temp = JSON.parse(message.payloadString);
-			Switches[temp.Id] = temp.State
+			$switches[temp.Id] = temp.State
+		}
+		else if(message.destinationName === 'Sensors/Reading'){
+			let temp: {Id: number, Value: number};
+			temp = JSON.parse(message.payloadString);
+			console.log(temp);
+			$indicator[temp.Id] = temp.Value === 1;
 		}
 	}
 
-	function setSpeed(Id: number, Speed: number) {
+	function setSpeed(Id: number, Speed: number, Sender: string) {
 		//Template for setting the motor speed value MQTT command
-		let message = new Paho.Message(JSON.stringify({Id, Speed}));
+		let message = new Paho.Message(JSON.stringify({Id, Speed, Sender}));
 		message.destinationName = 'motor/cmd/speed';
 		client?.send(message);
 	}
-	function setSwitch(Id: number, State: boolean){
-		let message = new Paho.Message(JSON.stringify({Id, State}));
+	function setSwitch(Id: number, State: boolean, Sender: string){
+		let message = new Paho.Message(JSON.stringify({Id, State, Sender}));
 		message.destinationName = 'switch/cmd/state';
 		client?.send(message);
 	}
 	function handleSpeed(event: CustomEvent<any>){
-		setSpeed(event.detail.id, event.detail.value);
+		setSpeed(event.detail.id, event.detail.value, $uuid);
 	}
 	function handleSwitch(event: CustomEvent<any>){
-		setSwitch(event.detail.id, event.detail.value);
+		setSwitch(event.detail.id, event.detail.value, $uuid);
 	}
 
-	//Values to bind for debug and dev purpouses 
-	let RailwayTrack: number[] = [0, 0];
-	let Switches: boolean[] = [true, true, true, true, true, true]
-	let current: boolean = true;
 </script>
 
 {#if !connected}
@@ -78,9 +86,9 @@
 	</div>
 	<br>
 	{#if current}
-	<MotorController values={RailwayTrack} on:setSpeed={handleSpeed}/>
+	<MotorController on:setSpeed={handleSpeed}/>
 	{:else}
-	<TrackSwitchers bind:Switches={Switches} on:setSwitch={handleSwitch}/>
+	<TrackSwitchers on:setSwitch={handleSwitch}/>
 	{/if}
 	<br>
 	<div class="center card">
@@ -88,6 +96,7 @@
 		{#each [...Array(users).keys()] as n}
 			<span>🎅</span>
 		{/each}
+		<p>{$uuid}</p>
 	</div>
 {/if}
 

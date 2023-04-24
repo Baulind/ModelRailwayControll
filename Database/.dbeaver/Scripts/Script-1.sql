@@ -1,0 +1,7 @@
+
+CREATE TABLE sensorValue (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	sensorId INTEGER,
+	value INTEGER,
+	time TEXT
+);

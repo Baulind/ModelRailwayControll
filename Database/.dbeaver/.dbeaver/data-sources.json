@@ -16,6 +16,19 @@
 				"type": "dev",
 				"auth-model": "native"
 			}
+		},
+		"sqlite_jdbc-186c180d2f7-6621fab813251cea": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "db.sqlite 2",
+			"save-password": true,
+			"configuration": {
+				"database": "C:\\Users\\bau-l\\Documents\\GitHub\\ing301project-gruppe20\\db.sqlite",
+				"url": "jdbc:sqlite:C:\\Users\\bau-l\\Documents\\GitHub\\ing301project-gruppe20\\db.sqlite",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {

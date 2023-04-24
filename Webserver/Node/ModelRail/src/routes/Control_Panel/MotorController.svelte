@@ -2,7 +2,8 @@
 	import IndividualMotor from "./IndividualMotor.svelte";    
     import { createEventDispatcher } from 'svelte';
 	import { each } from "svelte/internal";
-    export let values: number[];
+	import { railwayTrack } from "../stores";
+    
     const dispatch = createEventDispatcher();
     function handleSpeed(event: CustomEvent<any>){
         dispatch('setSpeed', {
@@ -32,21 +33,21 @@
     }
 </script>
 
-{#if values.length >= 1}
+{#if $railwayTrack.length >= 1}
     <div class="body center">
         <div class="tabBar" id="tabs">
-        {#if values.length != 1}
-            {#each values as v, i}
-                <button class="tab" on:click={() => onClick(i)}>Tog: {i}</button>
+        {#if $railwayTrack.length != 1}
+            {#each $railwayTrack as v, i}
+                <button class="tab" on:click={() => onClick(i)}>Spor: {i}</button>
             {/each}
         {:else}
             <div class="tab"></div>
         {/if}
         </div>
         <div class="container" id="container">
-            {#each values as v, i}
+            {#each $railwayTrack as v, i}
             <div class="controller">
-                <h2>Motor: {i} Value: {v}%</h2>
+                <h2>Spor: {i} Value: {v}%</h2>
                 <IndividualMotor bind:Value={v} Id={i} on:setSpeed={handleSpeed}/>
             </div>
             {/each}
