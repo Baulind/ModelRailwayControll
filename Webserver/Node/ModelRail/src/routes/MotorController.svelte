@@ -2,7 +2,7 @@
 	import IndividualMotor from "./IndividualMotor.svelte";    
     import { createEventDispatcher } from 'svelte';
 	import { each } from "svelte/internal";
-	import { railwayTrack } from "../stores";
+	import { railwayTrack } from "./stores";
     
     const dispatch = createEventDispatcher();
     function handleSpeed(event: CustomEvent<any>){
@@ -38,7 +38,7 @@
         <div class="tabBar" id="tabs">
         {#if $railwayTrack.length != 1}
             {#each $railwayTrack as v, i}
-                <button class="tab" on:click={() => onClick(i)}>Spor: {i}</button>
+                <button class="tab" on:click={() => onClick(i)}></button>
             {/each}
         {:else}
             <div class="tab"></div>
@@ -47,7 +47,7 @@
         <div class="container" id="container">
             {#each $railwayTrack as v, i}
             <div class="controller">
-                <h2>Spor: {i} Value: {v}%</h2>
+                <h2>Zone: {i} Speed: {v}%</h2>
                 <IndividualMotor bind:Value={v} Id={i} on:setSpeed={handleSpeed}/>
             </div>
             {/each}
@@ -76,6 +76,7 @@
         padding: 1em;
         background-color: gray;
         width: 100%;
+        min-height: 3em;
         border-radius: 1.5em 1.5em 0 0;
     }
     .container{

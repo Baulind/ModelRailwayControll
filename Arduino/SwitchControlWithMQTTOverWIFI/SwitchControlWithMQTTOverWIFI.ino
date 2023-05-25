@@ -1,24 +1,41 @@
-#include <analogWrite.h>
+#include <ESP8266WiFi.h>
 #include <ArduinoJson.h>
 #include <ArduinoJson.hpp>
-#include <WiFi.h>
 #include <PubSubClient.h>
 
 #define argsLimit 5
-#define trackLimit 12
+#define switchLimit 1
 #define jsonBuffer 256
 
+// Give unit a unique identifier in the system.
+const char* uuid = "trackSwitcher0";
+
 // Replace the next variables with your SSID/Password combination
-//const char* ssid = "Modelljernbane";
-//const char* password = "mat.tab.tea";
-const char* ssid = "Get-2G-36523F";
-const char* password = "ESSEPUNG";
+const char* ssid = "Modelljernbane";
+const char* password = "mat.tab.tea";
 
 // Add your MQTT Broker IP address:
-//const char* mqtt_server = "192.168.0.219";
-const char* mqtt_server = "192.168.0.114";
+const char* mqtt_server = "192.168.0.219";
+
 WiFiClient espClient;
 PubSubClient client(espClient);
+
+struct trackSwitch{
+  uint8_t pin;
+  uint8_t id;
+  bool state;
+  trackSwitch(const uint8_t _pin, uint8_t _id)
+  {
+    pin = _pin;
+    id = _id;
+  }
+};
+
+//Configure switches here:
+trackSwitch switches[switchLimit] = {
+  trackSwitch(D2, 0)
+};
+
 
 void setup() {
   //Serial interface for debugging
@@ -67,9 +84,14 @@ void callback(char* topic, byte* message, unsigned int length) {
   Serial.println(topic);
   
   if (String(topic) == "switch/cmd/state") {
-    int Id                = payload["Id"];
-    double State          = payload["State"];
-    //Do something with switch  
+    uint8_t Id                = payload["Id"];
+    bool State          = payload["State"];
+    //Do something with switch
+    for(int i = 0; 0 < switchLimit; i++){
+      if (switches[i].id == Id ){
+        digitalWrite(switches[i].pin, State);
+      }
+    }  
   }
   else if(String(topic) == "switch/cmd"){
     //Handle cmd
@@ -81,7 +103,7 @@ void reconnect() {
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (client.connect("MotorController")) {
+    if (client.connect(uuid)) {
       Serial.println("connected");
       // Subscribe
       client.subscribe("switch/cmd/state");

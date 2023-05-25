@@ -54,7 +54,6 @@ client = mqtt.Client(clean_session=True, userdata=None, transport='websockets')
 client.on_connect = on_connect
 client.on_message = on_message
 client.on_log=on_log
-
 client.connect(host = "localhost", port=9001, keepalive=60)
 client.loop_forever()
 

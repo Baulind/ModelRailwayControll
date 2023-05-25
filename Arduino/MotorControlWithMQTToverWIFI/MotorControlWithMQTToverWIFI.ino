@@ -5,19 +5,19 @@
 #include <PubSubClient.h>
 #include <Motor.h>
 
-#define argsLimit 5
-#define trackLimit 12
-#define jsonBuffer 256
+constexpr std::uint8_t argsLimit = 5U;
+constexpr std::uint8_t trackLimit = 12U;
+constexpr std::uint16_t jsonBuffer = 256U;
+
+// Give a unique identifier in the system
+const char* uuid = "MotorController";
 
 // Replace the next variables with your SSID/Password combination
-//const char* ssid = "Modelljernbane";
-//const char* password = "mat.tab.tea";
-const char* ssid = "Get-2G-36523F";
-const char* password = "ESSEPUNG";
+const char* ssid = "Modelljernbane";
+const char* password = "mat.tab.tea";
 
 // Add your MQTT Broker IP address:
-//const char* mqtt_server = "192.168.0.219";
-const char* mqtt_server = "192.168.0.57";
+const char* mqtt_server = "192.168.0.219";
 WiFiClient espClient;
 PubSubClient client(espClient);
 
@@ -27,17 +27,19 @@ TaskHandle_t controller;
 //Timer
 unsigned long startMillis;  //some global variables available anywhere in the program
 unsigned long currentMillis;
-const unsigned long period = 1000;  //the value is a number of milliseconds
+const unsigned long period = 1000U;  //the value is a number of milliseconds
 
 void setup() {
   //Serial interface for debugging
-  Serial.begin(9600);
+  Serial.begin(9600U);
   //MQTT related setup
   setup_wifi();
-  client.setServer(mqtt_server, 1883);
+  client.setServer(mqtt_server, 1883U);
   client.setCallback(callback);
-  //Debug motor
-  RailwaySystem[0].setup(T0, T2);
+  
+  //Configure motors here:
+  RailwaySystem[0].setup(5, 4);
+  
   //Run motor controll on separate core
   xTaskCreatePinnedToCore(
     Run,
@@ -128,7 +130,7 @@ void reconnect() {
   // Loop until we're reconnected
   while (!client.connected()) {
     // Attempt to connect
-    if (client.connect("MotorController")) {
+    if (client.connect(uuid)) {
       Serial.println("connected");
       // Subscribe
       client.subscribe("motor/cmd/speed");

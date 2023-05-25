@@ -1,0 +1,1 @@
+SELECT * FROM sensorValue sv WHERE sv.sensorId  == {id};

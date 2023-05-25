@@ -65,14 +65,14 @@ void Motor::Run(){
     //Motor
     //------------------------------------
     //drive output
-    digitalWrite(controlPin, Output > 0);
+    digitalWrite(controlPin, Output >= 0);
     analogWrite(enablePin, abs(Output));
 
     //Serial.print(Output);
     //Serial.print('\t');
     //Serial.print(Setpoint);
     //Serial.print('\t');
-    //Serial.print(Output > 0);
+    //Serial.print(Output >= 0);
     //Serial.println('\t');
 }
 
@@ -109,7 +109,7 @@ char* Motor::handleCMD(const char* Function, int* args){
   {
     //getPin();
   }
-  else if (strcmp(Function, "getSpeed") == 0)
+  else if (strcmp(Function, "getSpeed") == 0 )
   {
     //getSpeed();
   }

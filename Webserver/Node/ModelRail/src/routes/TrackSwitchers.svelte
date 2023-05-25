@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { switches, switchCords, indicator, indicatorCords } from "../stores";
+	import { switches, switchCords, indicator, indicatorCords } from "./stores";
 	import IndividualSwitch from "./IndividualSwitch.svelte";
     import { createEventDispatcher } from 'svelte';
     

@@ -1,0 +1,48 @@
+CREATE TABLE misc (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	message TEXT,
+	time TEXT
+);
+CREATE TABLE motors (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	controllerId INTEGER,
+	enablePin INTEGER,
+	directionPin INTEGER
+);
+CREATE TABLE motorValue (
+	id INTEGER AUTOINCREMENT,
+	motorId INTEGER,
+	target INTEGER,
+	time TEXT,
+	sender TEXT,
+    CONSTRAINT MOTORVALUE_PK PRIMARY KEY (id),
+	CONSTRAINT motorValue_FK FOREIGN KEY (motorId) REFERENCES motors(id)
+);
+CREATE TABLE sensors (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	hubId INTEGER,
+	pin INTEGER,
+	motorId INTEGER
+);
+CREATE TABLE sensorValue (
+	id INTEGER,
+	sensorId INTEGER,
+	value INTEGER,
+	time TEXT,
+	CONSTRAINT SENSORVALUE_PK PRIMARY KEY (id),
+	CONSTRAINT sensorValue_FK FOREIGN KEY (sensorId) REFERENCES sensors(id)
+);
+CREATE TABLE switches (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	controllerId INTEGER,
+	pin INTEGER
+);
+CREATE TABLE switchValue (
+	id INTEGER,
+	switchId INTEGER,
+	target INTEGER,
+	time TEXT,
+	sender TEXT,
+	CONSTRAINT SWITCHVALUE_PK PRIMARY KEY (id),
+	CONSTRAINT switchValue_FK FOREIGN KEY (switchId) REFERENCES switches(id)
+);
