@@ -96,7 +96,7 @@ def sensor_value_by_id(id: int):
 def current_motor_value_by_id(id: int):
     con = sqlite3.connect('Database\db.sqlite')
     cur = con.cursor()
-    cmd = f"SELECT * from motorValue mv WHERE mv.motorId == {id};"
+    cmd = f"SELECT * from motorValue mv WHERE mv.motorId == {id} ORDER by mv.id DESC;"
     cur.execute(cmd)
     i = cur.fetchone()
     return motorValue(id=i[0], motorId=i[1], target=i[2], time=i[3], sender=i[4])
@@ -105,7 +105,7 @@ def current_motor_value_by_id(id: int):
 def current_switch_value_by_id(id: int):
     con = sqlite3.connect('Database\db.sqlite')
     cur = con.cursor()
-    cmd = f"SELECT * FROM switchValue sv WHERE sv.switchId == {id};"
+    cmd = f"SELECT * FROM switchValue sv WHERE sv.switchId == {id} ORDER by sv.id DESC;"
     cur.execute(cmd)
     i = cur.fetchone()
     return switchValue(id=i[0], switchId=i[1], target=i[2], time=i[3], sender=i[4])
@@ -114,7 +114,7 @@ def current_switch_value_by_id(id: int):
 def current_sensor_value_by_id(id: int):
     con = sqlite3.connect('Database\db.sqlite')
     cur = con.cursor()
-    cmd = f"SELECT * FROM sensorValue sv WHERE sv.sensorId  == {id};"
+    cmd = f"SELECT * FROM sensorValue sv WHERE sv.sensorId  == {id} ORDER by sv.id DESC;"
     cur.execute(cmd)
     i = cur.fetchone()
     return sensorValue(id=i[0], sensorId=i[1], value=i[2], time=i[3], sender=i[4])
