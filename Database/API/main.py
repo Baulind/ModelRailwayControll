@@ -120,4 +120,4 @@ def current_sensor_value_by_id(id: int):
     return sensorValue(id=i[0], sensorId=i[1], value=i[2], time=i[3], sender=i[4])
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
