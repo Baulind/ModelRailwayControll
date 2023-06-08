@@ -25,7 +25,7 @@ struct light{
   uint8_t redPin;
   uint8_t greenPin;
   bool state;
-
+   
   light(uint8_t _redPin, uint8_t _greenPin)
   {
     redPin = _redPin;
@@ -35,14 +35,14 @@ struct light{
 };
 
 light lights[lightLimit] = {
+  light(16, 17),
   light(15, 2),
   light(0, 4),
-  light(16, 17),
-  light(5, 18),
   light(22, 23),
-  light(25, 33),
-  light(12, 14),
-  light(27, 26)
+  light(5, 18),
+  light(26, 27),
+  light(14, 12),
+  light(33, 25)
 };
 
 void setup() {
@@ -66,6 +66,14 @@ void loop() {
   //Check for messages
   client.loop();
   for(int i = 0; i < lightLimit; i++){
+    //Serial.print("R_Pin: ");
+    //Serial.print(lights[i].redPin);
+    //Serial.print(" R_Val: ");
+    //Serial.print(!lights[i].state);
+    //Serial.print(" G_Pin: ");
+    //Serial.print(lights[i].redPin);
+    //Serial.print(" G_Val: ");
+    //Serial.println(lights[i].state);
     digitalWrite(lights[i].redPin, !lights[i].state);
     digitalWrite(lights[i].greenPin, lights[i].state);
   }
